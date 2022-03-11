@@ -6,7 +6,7 @@ body {
 
 .header {
   text-align: center;
-  height: 130px;
+  height: 180px;
 }
 
 .body--div {
@@ -28,8 +28,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 25%;
-  background-color: #f1f1f1;
+  width: 10%;
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -48,6 +47,14 @@ li a.active {
 }
 
 li a:hover:not(.active) {
-  background-color: #555;
   color: white;
+}
+
+img.nav--img {
+  width: 100px;
+  opacity: 0.5;
+}
+
+img.nav--img:hover {
+  opacity: 1;
 }
