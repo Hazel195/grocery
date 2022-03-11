@@ -1,0 +1,28 @@
+body {
+  background-image: url('img/background.png');
+  background-size: 100%;
+  background-position: top;
+}
+
+.header {
+  text-align: center;
+  height: 130px;
+}
+
+.body--div {
+  display: flex;
+}
+
+.left--div {
+  flex: 50%;
+  background-color: #db7272;
+  padding: 20px;
+}
+
+.right--div {
+  flex: 50%;
+  background-color: rgb(166, 218, 47);
+  padding: 20px;
+}
+
+.
