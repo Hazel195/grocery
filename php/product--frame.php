@@ -58,7 +58,7 @@ if (isset($_REQUEST['product_id']))
 
 				echo "</table>";
 
-				$_SESSION["currentProduct"] = $a_row;
+				$_SESSION["selected_item"] = $a_row;
 
 				echo '
 				<div>

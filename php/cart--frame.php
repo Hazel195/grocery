@@ -1,89 +1,64 @@
-<?php 
-    session_start();
+<?php
+	session_start();
+
+	if (!isset($_SESSION['item_list']) ){
+		
+		$item_id = $_SESSION['selected_item'][product_id];
+		$_SESSION["item_list"][$id][product_id] = $_SESSION["selected_item"][product_id];
+		$_SESSION["item_list"][$id][product_name] = $_SESSION["selected_item"][product_name];
+		$_SESSION["item_list"][$id][unit_price] = $_SESSION["selected_item"][unit_price];
+		$_SESSION["item_list"][$id][unit_quantity] = $_SESSION["selected_item"][unit_quantity];
+		$_SESSION["item_list"][$id][quantity] = $_REQUEST["quantity"];
+	}
+
+
+	 else {
+		$search_id = $_SESSION['selected_item'][product_id];
+		$found = false;
+
+		foreach($_SESSION['item_list'] as $curr) {
+			while(!$found) {
+				
+				if (($curr['product_id'] == $search_id)) {
+					$_SESSION['item_list'][$search_id][unit_quantity] += $_REQUEST["quantity"];
+					$found = true;
+
+					//break;
+				}
+			}
+		}
+
+	}
+
+	if ($_REQUEST['clear_all']) {
+		unset($_SESSION['selected_item']);
+		unset($_SESSION['check_out']);
+		unset($_SESSION['item_list']);
+	}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CART</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
 <body>
+	<?php
+	foreach($_SESSION['item_list'] as $curr) {?> 
+		<p><a href="#"> <?php echo $curr['product_name'];?></a> <?php echo $curr['qunatity'];?> <?php echo $curr['unit_price']; ?> <?php echo $curr['quantity'];?></p>
+	<?php } ?>
+	<a href="cart--frame.php?clear=true" target="cart-frame">CLEAR LIST</a>
+	<a href="cart--frame.php?check_out=true" target="product--frame">CHECK OUT</a>
 
+	<h1>Total $
+	<?php $sum = 0;
+	foreach($_SESSION['item_list'] as $curr) 
+		$sum += $curr['unit_price'] * $curr['quantity'];
+	echo $sum; ?></h1>
 
-    <?php
-    
-    if (!isset($_REQUEST['data'])) {
-        echo "ERROR";
-    } else {
-        $product_id = $_REQUEST['data'];
-
-        $_SESSION["selected_id"] = $product_id;
-
-        $conn = mysqli_connect('localhost', 'hazel', 'internet', 'assignment1');
-        
-        $q = "select * from products where (product_id = $product_id)";
-
-        $result = mysqli_query($conn, $q);
-
-        $num_rows = mysqli_num_rows($result);
-        if (!$num_rows < 0 ) {
-			
-			if ( $a_row = mysqli_fetch_array($result))
-			{										
-				// talbe 
-				echo "<table id='customers'>";
-				echo "<tr>\n";
-				echo "<th>product_id</th>";
-				echo "<th>product_name</th>";
-				echo "<th>unit_price</th>";
-				echo "<th>unit_quantity</th>";
-				echo "<th>in_stock</th>";
-				echo "</tr>";
-
-				echo "<tr>\n";
-				echo "<td>$a_row[product_id]</td>";
-				echo "<td>$a_row[product_name]</td>";
-				echo "<td>$a_row[unit_price]</td>";
-				echo "<td>$a_row[unit_quantity]</td>";
-				echo "<td>$a_row[in_stock]</td>";
-				echo "</tr>";
-
-				echo "</table>";
-
-				$_SESSION["currentProduct"] = $a_row;
-
-                $add_string = '
-				<div>
-				<form action="cart--frame.php" method="get" target="cart--frame" onsubmit="return is validate()">
-					Product Quantity :
-					<input type="number" id="qty" name="qty" min="1" max="20" value="1">
-					<input type="submit" value="ADD">
-				 </form>
-				 </div>';
-
-				echo $add_string;
-				 
-			}
-		}
-		mysqli_close($link);	
-    }
-
-    ?>
-
-<script>
-    function is_validate() {
-        var qty = document.getElementByID("qty").value;
-
-        if (qty > 20 || qty < 1) {
-            return false;
-        }
-        return true;
-    }
-
-</script>
 
 
 </body>
