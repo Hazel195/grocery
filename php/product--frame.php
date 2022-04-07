@@ -1,44 +1,44 @@
-<?php
-session_start();
+<?php 
+    session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title></title>
-	<?php echo "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>"; ?>
-	<?php echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/mystyle.css\" />"; ?>
-	<?php echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"../css/checkoutform.css\" />"; ?>
-	
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CART</title>
 </head>
 <body>
 
-<?php
-if (isset($_REQUEST['product_id'])) 
-	{
-		// If receive products ID then, retrive this ID in database
-		$product_id = $_REQUEST['product_id'];
-	
-		// Store current product ID in session;
-		$_SESSION["curr_product_id"] = $product_id;
-		
-		//Procedural style
-		$connection = mysqli_connect('rerun', 'potiro', 'pcXZb(kL', 'poti');
-	
-		$query_string = "select * from products where (product_id = $ID)";
-		 
-		$result=mysqli_query($connection,$query_string);
-		 
-		$num_rows=mysqli_num_rows($result);
-	
-		if ($num_rows > 0 ) {
-			
-			if ( $a_row = mysqli_fetch_array($result))
-			{										
-				// talbe 
+
+    <?php
+    
+    if (!isset($_REQUEST['data'])) {
+        echo "ERROR";
+    } else {
+        $product_id = $_REQUEST['data'];
+
+        $_SESSION["selected_id"] = $product_id;
+
+        $conn = mysqli_connect('localhost', 'uts', 'internet', 'assignment1');
+        
+        $q = "select * from products where (product_id = $product_id)";
+
+        $result = mysqli_query($conn, $q);
+        
+        $a_row = mysqli_fetch_array($result);
+        
+        echo $product_id." successfully loaded";
+        echo $a_row[product_id];
+
+        $num_rows = mysqli_num_rows($result);
+        
+        
+        if ($num_rows > 0 ) {
+										
+				
 				echo "<table id='customers'>";
 				echo "<tr>\n";
 				echo "<th>product_id</th>";
@@ -58,28 +58,38 @@ if (isset($_REQUEST['product_id']))
 
 				echo "</table>";
 
-				$_SESSION["selected_item"] = $a_row;
+				$_SESSION["currentProduct"] = $a_row;
 
-				echo '
+                $add_string = '
 				<div>
-				<form action="cart--frame.php" method="get" target="cart--frame" onsubmit="return validate_quantity()">
-					Quantity (between 1 and 20):
-					<input type="number" id="quantity" name="quantity" min="1" value="1">
+				<form action="cart--frame.php" method="get" target="cart--frame" onsubmit="return is validate()">
+					Product Quantity :
+					<input type="number" id="qty" name="qty" min="1" max="20" value="1">
 					<input type="submit" value="ADD">
 				 </form>
 				 </div>';
+
+				echo $add_string;
 				 
 			}
-		}
-		mysqli_close($link);	
-	
-	} 
-	
-	if( $_REQUEST["showcheckoutForm"] == 1 && (count($_SESSION["itmes"]) > 0) )
-	{
-		require('checkoutform.php');
-	}
+		
+		
+    }
 
-?>
+    ?>
+
+<script>
+    function is_validate() {
+        var qty = document.getElementByID("qty").value;
+
+        if (qty > 20 || qty < 1) {
+            return false;
+        }
+        return true;
+    }
+
+</script>
+
+
 </body>
 </html>
