@@ -1,12 +1,12 @@
 body {
-  background-image: url('img/background.png');
+  background-image: url("img/background.png");
   background-size: 100%;
   background-position: top;
 }
 
 .header {
   text-align: center;
-  height: 180px;
+  height: 100px;
 }
 
 .body--div {
@@ -14,13 +14,19 @@ body {
 }
 
 .left--div {
-  flex: 60%;
+  flex: 55%;
   padding: 0px 0px;
+  left: 10%;
+
 }
 
 .right--div {
-  flex: 40%;
+  flex: 35%;
   padding: 0px;
+}
+
+.blank {
+  height:150px;
 }
 
 ul {
@@ -30,7 +36,7 @@ ul {
   width: 60%;
   position: fixed;
   height: 100%;
-  overflow: scroll;
+  overflow: scroll;  
 }
 
 li {
@@ -46,7 +52,7 @@ li a {
 }
 
 img.nav--img {
-  width: 100px;
+  width: 120px;
   opacity: 0.5;
 }
 
@@ -56,9 +62,13 @@ img.nav--img:hover {
 
 img.sub--nav--img {
   width: 100px;
-  opacity: 1;
+  opacity: 0.5;
   overflow: scroll;
   padding: 4px 10px;
+}
+
+img.sub--nav--img:hover {
+  opacity: 1;
 }
 
 ul {
@@ -66,6 +76,10 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
+}
+
+li.sub {
+  left: -25px;
 }
 
 li {
@@ -98,18 +112,16 @@ li.dropdown {
   text-decoration: none;
   display: block;
   text-align: left;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 .dropdown-content a:hover {
-  opacity:1;
-  
+  opacity: 1;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
 
 #nav--1 {
   width: 100%;
@@ -152,4 +164,26 @@ li.dropdown {
   opacity: 1;
   overflow: scroll;
   padding: 4px 10px;
+}
+
+#iframe1 {
+  height: 50%;
+}
+
+#iframe2 {
+  overflow-y: scroll;
+}
+
+table {
+  background-color: white;
+}
+
+th,
+td {
+  border-bottom: 1px solid #ddd;
+}
+
+#btn {
+  color: white;
+  background-color: black;
 }
