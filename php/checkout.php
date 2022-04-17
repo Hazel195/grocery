@@ -22,23 +22,23 @@
         <table>
             <tr>
                 <th>Name</th>
-                <td>
+                <th>
                     <input type="text" id="f--name" name="f--name" placeholder="first name" required> 
                     <input type="text" id="l--name" name="l--name"  placeholder="last name" required>
-                </td>
+                </th>
             </tr>
             <tr>
             <th>Address</th>
-                <td>
+                <th>
                     <input type="text" id="address" name="address" placeholder="unit/street" required> 
                     <input type="text" id="suburb" name="suburb"  placeholder="suburb" required>
-                </td>
+                </th>
             </tr>
             <tr>
-                <td>
+                <th>
                     <input type="text" id="state" name="state" placeholder="state" required> 
                     <input type="text" id="country" name="country"  placeholder="country" required>
-                </td>
+                </th>
             </tr>
             <tr>
                 <th></th>

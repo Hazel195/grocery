@@ -23,6 +23,7 @@
 .right--div {
   flex: 70%;
   padding: 0px;
+  top: 30px;
 }
 
 .right--div--1 {
@@ -175,7 +176,19 @@ td {
 }
 
 
-
-#btn {
-  
+a:link, a:visited {
+  background-color: none;
+  color: black;
+  border: 2px solid #f4ded7;
+  text-align: center;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
 }
+
+a:hover, a:active {
+  background-color: #e2ab9a;
+  color: white;
+}
+
+.

@@ -117,7 +117,7 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
       
   if ($_REQUEST["clear"] == 1) {
     unset($_SESSION["selected_item"]);
-    unset($_SESSION['showCheckout']);
+    unset($_SESSION['checkout_clicked']);
     unset($_SESSION['itmes']);
     unset($total_number);
     unset($_SESSION['new_item']);
@@ -125,6 +125,7 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
     unset($_SESSION['total']);
     
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -143,8 +144,8 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
   <br>Click 'CHECKOUT' button to hide this information.
 </div>
 
-<a href="cart--frame.php?clear=1" target="cart--frame" id="btn" style="float:right">CLEAR</a>
-<a href="product--frame.php?showcheckoutForm=1" target="product--frame" id="btn" id="checkout-btn">CHECKOUT</a>
+<a href="cart--frame.php?clear=1" target="cart--frame" class="button" style="float:right">CLEAR</a>
+<a  href="checkout.php?checkout_clicked=1" class="button" target="product--frame" >CHECKOUT</a>
 <hr>
 
 <div class="row">
@@ -155,7 +156,7 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
   <?php 
     foreach($_SESSION["itmes"] as $product){ 
     if ($product->unit_price != 0){?>
-      <p><a href="product--frame.php?data=<?php echo $product->product_id; ?>" target="product--frame"><?php echo $product->product_name;?></a> * <?php echo $product->quantity;?><span class="price">$<?php echo $product->unit_price*$product->quantity;?></span></p>
+      <p><?php echo $product->product_name;?> X <?php echo $product->quantity;?><span class="price">$<?php echo $product->unit_price*$product->quantity;?></span></p>
   <?php }} ?>
 
     <hr>
@@ -174,22 +175,6 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
 </div>
 </div>
 
-<script>
-  document.getElementById("checkout-btn").onclick=checkout;
-  function checkout() {	
-    //check out total count. If total count is 0, show info banner, otherwise target to right-top ifram
-    var number = document.getElementById("number-itmes").innerHTML;
-    if (number == 0) 
-    {
-      //show
-      var popup = document.getElementById("info-banner");
-      popup.classList.toggle("show");
 
-            
-    } else {
-
-    }
-  }
-</script>
 </body>
 </html>

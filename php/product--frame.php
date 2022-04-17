@@ -70,7 +70,7 @@ class Product {
         echo intval($new_item->product_id/1000);
         echo "/";
         echo $new_item->product_id;
-        echo ".png width=200/>";
+        echo ".png width=180/>";
         ?>
         
         </div>
@@ -123,13 +123,17 @@ class Product {
     }
 
     ?>
-    
+
     <div>
-				<form action="cart--frame.php" method="get" target="cart--frame" onsubmit="return is_valid()">
+        <?php
+            if(isset($_REQUEST['data'])) {
+    
+				echo '<form action="cart--frame.php" method="get" target="cart--frame" onsubmit="return is_valid()">
 					Quantity (1~20):
 					<input type="number" id="quantity" name="quantity" min="1" max="20" value="1">
-					<input type="submit" value="ADD">
-				 </form>
+					<input type="submit" id="add--button" value="ADD">
+				 </form>';
+				 } ?>
 	</div>
 	</div>
 
