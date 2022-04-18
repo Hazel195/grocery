@@ -38,13 +38,13 @@ class Product {
     <?php
     
     if (!isset($_REQUEST['data'])) {
-        echo "select product";
+        echo "";
     } else {
         $selected_id = $_REQUEST['data'];
 
         $_SESSION["selected_ID"] = $selected_id;
 
-        $conn = mysqli_connect('localhost', 'uts', 'internet', 'assignment1');
+		$conn = mysqli_connect('aa1v4eqka9379uz.cns4nwpeuyv6.us-east-1.rds.amazonaws.com:3306', 'uts', 'internet', 'assignment1');
         
         $q = "select * from products where (product_id = $selected_id)";
 
@@ -79,6 +79,7 @@ class Product {
         <?php
 		echo "<h1># ";
 		echo $new_item->product_id;
+		echo "<br>";
 		echo " $new_item->product_name";
 		echo "</h1>";
         
@@ -100,9 +101,11 @@ class Product {
 				echo "<th>In Stock</th>";
 				echo "<td>$new_item->in_stock</td>";
 				echo "</tr>";
+				echo "<br>";
 				?>
 				
 		</table>
+		<br>
 		
 		<?php
                 
