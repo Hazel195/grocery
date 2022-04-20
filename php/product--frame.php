@@ -14,28 +14,7 @@
 <body>
     <div class="body--div">
 <?php
-
-class Product {
-    public $product_id;
-    public $product_name;
-    public $unit_price;
-    public $unit_quantity;
-    public $in_stock;
-    public $quantity;
-
-    function __construct($product_id, $product_name, $unit_price, $unit_quantity, $in_stock) {
-        $this->product_id = $product_id;
-        $this->product_name = $product_name;
-        $this->unit_price = $unit_price;
-        $this->unit_quantity = $unit_quantity;
-        $this->in_stock = $in_stock;
-        $this->quantity = 0;
-    }
-}
-
-
-?>
-    <?php
+    require_once('Product.php');
     
     if (!isset($_REQUEST['data'])) {
         echo "";
@@ -57,10 +36,8 @@ class Product {
         $_SESSION['new_item_row'] = $a_row;
         $product_id = $a_row['product_id'];
         $new_item = new Product($a_row['product_id'], $a_row['product_name'], $a_row['unit_price'], $a_row['unit_quantity'],$a_row['in_stock']);
-        //$_SESSION['new_item'] = serialize($new_item);
-
-
-        //$new_item = unserialize($_SESSION['new_item']);
+        
+        
 
     ?>
     <div class="left--div--1">
@@ -139,6 +116,11 @@ class Product {
 				 } ?>
 	</div>
 	</div>
+	<?php
+	if( $_REQUEST["checkout_clicked"] == 1 && (count($_SESSION["itmes"]) > 0) )
+	{
+		require('checkout.php');
+	}?>
 
 <script>
     function is_valid() {

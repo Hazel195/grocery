@@ -141,17 +141,17 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
  
 <div id="info-banner" style="display:none" class="alert alert-info">
   <strong>Note:</strong> No items! 
-  <br>Click 'CHECKOUT' button to hide this information.
+  <br>Select items to proceed checkout
 </div>
 
 <a href="cart--frame.php?clear=1" target="cart--frame" class="button" style="float:right">CLEAR</a>
-<a  href="checkout.php?checkout_clicked=1" class="button" target="product--frame" >CHECKOUT</a>
+<a href="product--frame.php?checkout_clicked=1" class="button" target="product--frame" id="checkout">CHECKOUT</a>
 <hr>
 
 <div class="row">
 <div class="col-25" >
   <div class="container">
-    <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i><b id='number-itmes'><?php echo $total_number;?></b></span></h4>
+    <h4>Cart<i class="fa fa-shopping-cart"></i><b id='number-itmes'><?php if ($total_number == 0) echo 0; else echo $total_number;?></b></h4>
   
   <?php 
     foreach($_SESSION["itmes"] as $product){ 
@@ -160,20 +160,34 @@ if(isset($a_row) && $_REQUEST["quantity"] > 0){
   <?php }} ?>
 
     <hr>
-
-    <p>Total <span class="price" style="color:black"><b>$
     <?php
-    $total = 0;
-    foreach($_SESSION["itmes"] as $product){
-      //$total += $product["unit_price"]*$product["quantity"];
-      $total += $product->unit_price * $product->quantity;
-    }
-    echo $total;
-    $_SESSION["total"]["cost"] = $total;
+      $total = 0;
+      foreach($_SESSION["itmes"] as $product){
+        //$total += $product["unit_price"]*$product["quantity"];
+        $total += $product->unit_price * $product->quantity;
+    }?>
+    <p>Total <span class="price" style="color:black"><b>$
+    <?php 
+      //echo $total;?>
+    <?php$_SESSION["total"]["cost"] = $total;
     ?></b></span></p>
   </div>
 </div>
 </div>
+
+<script>
+  document.getElementById("checkout").onclick = validateCheckout;
+  
+  function validateCheckout() {	
+  var number = document.getElementById("number-itmes").innerHTML;
+    if (number == 0) 
+    {
+      //show
+      var popup = document.getElementById("info-banner");
+      popup.style.display = "block";
+    }
+   }
+    </script>
 
 
 </body>
